@@ -100,7 +100,7 @@ if(interactive()){
   ##----Connect to SQLite DB----
   con = dbConnect(SQLite(), dbname=sql_db_name)
   
-  weather_data = get_weather_data(airport, dates, logger=writeToFile, db_conn=con)
+  weather_data = get_weather_data(airport, dates)
   
   dbDisconnect(con)
 }
