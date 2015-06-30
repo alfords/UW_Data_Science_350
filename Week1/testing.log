@@ -1,0 +1,10 @@
+2015-06-28 09:14:25 INFO::BEGIN reading file
+2015-06-28 09:14:34 INFO::END reading file
+2015-06-28 09:14:34 INFO::Separated weekends from weekdays
+2015-06-28 09:14:34 INFO::Part one answered
+2015-06-28 09:14:34 INFO::Part 2 answered
+2015-06-28 09:15:00 INFO::Part 3 answered
+2015-06-28 09:15:01 INFO::Plotting weekend and workweek game codes
+2015-06-28 09:15:01 INFO::Collected weekend headcout for popular game codes (CR, S6, TP)
+2015-06-28 09:15:01 INFO::Collected weekdays headcout for popular game codes (CR, S6, TP)
+2015-06-28 09:15:02 INFO::Answered part 4
