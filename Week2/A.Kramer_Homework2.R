@@ -1,13 +1,15 @@
 ##--------------------------------------------
 ##
-## R Review Homework Headstart
+## R Review Homework
 ##
-## Class: PCE Data Science Methods Class
+## Aleksey Kramer
+##
+## Homework 2 R-script
 ##
 ##--------------------------------------------
 
 ##-----Set working directory-----
-setwd('E:/Work/Teaching/PCE_Data_Science/1_Intro_Lecture/')
+setwd('C:\\Users\\db345c\\Desktop\\UW_TRAIN\\Week2')
 
 ##-----Load Libraries-----
 library(dplyr)
@@ -28,13 +30,16 @@ weather_file_name = 'las_vegas_hourly_weather.csv'
 # <<CHANGE BELOW CODE BASE ON ABOVE CODE>>>
 # If it isn't, run webscraper:
 # Look at dates:
-range(headcount$DateFormat)
+if (file.exists(weather_file_name)) {
+    weather_data = read.csv(weather_file_name)
+} else {
+    range(headcount$DateFormat)
+    airport = 'KLAS'
+    dates = seq(from=min(headcount$DateFormat), to=max(headcount$DateFormat), by=1)
+    weather_data = get_weather_data(airport, dates)
+    write.csv(weather_data, file = weather_file_name)
+}
 
-airport = 'KLAS'
-dates = seq(from=min(headcount$DateFormat),
-            to=max(headcount$DateFormat),
-            by=1)
-weather_data = get_weather_data(airport, dates)
 names(weather_data) = c('time','temp','dew_pt','humidity','pressure',
                         'visibility','wind_dir','wind_speed','gust_speed',
                         'precipitation','events','conditions',
@@ -72,7 +77,7 @@ weather_data$date = NULL
 # <<<CHANGE BELOW MERGING CODE>>>
 
 # Merge (base)
-headcount_base_all = merge(headcount, weather_data, all.x=TRUE, by=c("DateFormat","Hour"))
+## headcount_base_all = merge(headcount, weather_data, all.x=TRUE, by=c("DateFormat","Hour"))
 
 
 # Merge(data.table)
@@ -89,8 +94,8 @@ setkeyv(weather_data, c("DateFormat", "Hour"))
 headcount_dt_all = merge(headcount, weather_data, all.x=TRUE, by=c("DateFormat", "Hour"))
 
 # Merge(dplyr)
-library(dplyr)
-headcount_dplyr_all = left_join(headcount, weather_data, by=c("DateFormat", "Hour"))
+## library(dplyr)
+## headcount_dplyr_all = left_join(headcount, weather_data, by=c("DateFormat", "Hour"))
 
 
 ##----Find another insight involving weather------
