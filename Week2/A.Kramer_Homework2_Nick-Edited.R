@@ -9,7 +9,7 @@
 ##--------------------------------------------
 
 ##-----Set working directory-----
-setwd("C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\Week2")
+setwd("E:/Work/Teaching/PCE_Data_Science/1_Intro_Lecture")
 
 ##-----Load Libraries-----
 library(dplyr)
@@ -31,22 +31,26 @@ weather_file_name = 'las_vegas_hourly_weather.csv'
 # If it isn't, run webscraper:
 # Look at dates:
 if (file.exists(weather_file_name)) {
-  weather_data = read.csv(weather_file_name, stringsAsFactors = FALSE)
-  names(weather_data) = c('time','temp','dew_pt','humidity','pressure',
-                          'visibility','wind_dir','wind_speed','gust_speed',
-                          'precipitation','events','conditions',
-                          'wind_dir_deg','date')
-  weather_data$date = as.Date(weather_data$date)
+    weather_data = read.csv(weather_file_name, stringsAsFactors = FALSE)
+    
+    names(weather_data) = c('time','temp','dew_pt','humidity','pressure',
+                            'visibility','wind_dir','wind_speed','gust_speed',
+                            'precipitation','events','conditions',
+                            'wind_dir_deg','date')
+    
+    weather_data$date = as.Date(weather_data$date)
 } else {
-  range(headcount$DateFormat)
-  airport = 'KLAS'
-  dates = seq(from=min(headcount$DateFormat), to=max(headcount$DateFormat), by=1)
-  weather_data = get_weather_data(airport, dates)
-  names(weather_data) = c('time','temp','dew_pt','humidity','pressure',
-                          'visibility','wind_dir','wind_speed','gust_speed',
-                          'precipitation','events','conditions',
-                          'wind_dir_deg','date')
-  write.csv(weather_data, file = weather_file_name, row.names=FALSE)
+    range(headcount$DateFormat)
+    airport = 'KLAS'
+    dates = seq(from=min(headcount$DateFormat), to=max(headcount$DateFormat), by=1)
+    weather_data = get_weather_data(airport, dates)
+    
+    names(weather_data) = c('time','temp','dew_pt','humidity','pressure',
+                            'visibility','wind_dir','wind_speed','gust_speed',
+                            'precipitation','events','conditions',
+                            'wind_dir_deg','date')
+    
+    write.csv(weather_data, file = weather_file_name, row.names=FALSE)
 }
 
 # Let's create a datetime in the weather data
