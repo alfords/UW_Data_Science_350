@@ -9,7 +9,7 @@
 ##--------------------------------------------
 
 ##-----Set working directory-----
-setwd('C:\\Users\\db345c\\Desktop\\UW_TRAIN\\Week2')
+setwd("C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\Week2")
 
 ##-----Load Libraries-----
 library(dplyr)
@@ -81,7 +81,8 @@ weather_data$date = NULL
 
 
 # Merge(data.table)
-# Note that data.table has a problem.  It canNOT take POSIX values. So we drop it (we are done with that column anyways)
+# Note that data.table has a problem.  It canNOT take POSIX values. So we drop it (we are 
+#      done with that column anyways)
 weather_data$datetime = NULL
 library(data.table)
 headcount = as.data.table(headcount)
@@ -106,3 +107,43 @@ headcount_dt_all = merge(headcount, weather_data, all.x=TRUE, by=c("DateFormat",
 
 # <<<INSERT NEW CODE HERE>>>
 
+# Isolating complete cases
+good <- complete.cases(headcount_dt_all)
+headcount_dt_all <- headcount_dt_all[good,]
+
+# Setting weather condition as factor variable
+headcount_dt_all$conditions <- as.factor(headcount_dt_all$conditions)
+
+# Plot weather conditions vs. Table Occupancy
+plot(headcount_dt_all$conditions, headcount_dt_all$TablesOcc)
+print("When the conditions are 'Rain' or 'Widespread Dust', table occupancy increases")
+
+# isolating dust and rain conditions/table occupancies
+dust_occ <- headcount_dt_all[headcount_dt_all$conditions == 'Widespread Dust',]$TablesOcc
+rain_occ <- headcount_dt_all[headcount_dt_all$conditions == 'Rain',]$TablesOcc
+
+# removing dust and rain conditions from the test data frame
+temp <- headcount_dt_all
+temp <- temp[conditions != 'Widespread Dust',]
+temp <- temp[conditions != 'Rain',]
+
+# Calculating means for days when conditions are Rain and Widespread Dust
+dust_mean <- mean(dust_occ)
+rain_mean <- mean(rain_occ)
+
+# Calculating mean for all conditions except for Rain and Widespread Dust
+all_mean <- mean(temp$TablesOcc)
+
+# Calculating difference in means for Widespread Dust vs all other conditions
+1 - all_mean / dust_mean
+
+# Calculating difference in means for Rain vs all other conditions
+1 - all_mean / rain_mean
+
+# The differnce in means between table occupancy during the days when weather condition is Widespread Dust
+# vs. all other weather conditions is 27%, meaning that table occupancy increases in average by 27%
+# when the weather condition is Widespread Dust
+
+# The differnce in means between table occupancy during the days when weather condition is Rain
+# vs. all other weather conditions is 35%, meaning that table occupancy increases in average by 35%
+# when the weather condition is Rain
