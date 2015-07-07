@@ -11,6 +11,8 @@ doors = c(0,0,0)
 
 # Set the number of simulations (n)
 n = 100000
+
+# Simulations
 no_switches = sapply(1:n, function(x){
     # Set location of the prise behind one of the doors (randomly)
     prise <- sample(1:3,1)
@@ -27,9 +29,6 @@ no_switches = sapply(1:n, function(x){
     return(stay + 0)
 })
 
-no_switch_wins <- length(no_switches[no_switches == 1])
-no_switch_loss <- length(no_switches[no_switches == 0])
-
-probability_of_wins_if_switches <- no_switch_wins / n
-probability_of_loss_if_switches <- no_switch_loss / n
+probability_of_wins_if_not_switches <- length(no_switches[no_switches == 1]) / n
+probability_of_wins_if_switches <- length(no_switches[no_switches == 0]) / n
 variance <- var(no_switches)
