@@ -15,4 +15,7 @@ TWITTER_ACCESS_SECRET = twit_cred$TWITTER_ACCESS_SECRET
 setup_twitter_oauth(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET)
 
 # Obtain twitter data
-ds <- searchTwitter('#datascience', locale=NULL, geocode=NULL,n=50)
+ds <- searchTwitter('#datascience', locale=NULL, geocode=NULL, n=50)
+
+# Get text from ds
+ds_text <- sapply(ds, function(x) x$getText())
