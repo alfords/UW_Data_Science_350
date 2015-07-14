@@ -106,7 +106,35 @@ if(interactive()){
   ##----Merge files together----
   data = merge(data, county_state_codes, by=c("state_code", "county_code"), all.x=TRUE)
   
+  ##----Write data to sqllite database (and test correctness)-----
+  db_name = 'data.db'
+  con = dbConnect(dbDriver("SQLite"), db_name)
+  
+  # Skip writing to database if already written
+  if(!file.exists("data.db")) {
+    dbWriteTable(con, "data", data)
+  }
+  
+  # Create query to aggregate by state: sum of ammounts paid and number of farms
+  query = 'SELECT ST state, sum(amount) amount, count(farm_num) num_of_tax_ids FROM DATA group by ST'
+  rs = dbSendQuery(con, query)
+  
+  # Create data fram from the result set and close db connection
+  aggregated.df <- fetch(rs)
+  dbDisconnect(con)
+  
   ##-----Probably do some data exploration----
+  
+  length(aggregated.df)
+  length(aggregated.df[,1])
+  summary(aggregated.df$amount)
+  
+  # There appers to be a linear relationship between the number of farms
+  # and the amount of subsidies received (in millions) with two two outliers
+  # who received more than 50 millions in subsidies
+  plot(aggregated.df$amount/1000000~aggregated.df$num_of_tax_ids,
+    xlab="Number of Customers",
+    ylab="Ammount (in Millions)")
   
   ##----Perform a test for equal representation-----
   
