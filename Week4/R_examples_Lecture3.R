@@ -145,6 +145,15 @@ lines(n, 1/sqrt(n)+1) # plot sd's +- st. error
 lines(n, -1/sqrt(n)+1)
 
 
+
+##-----Student's T-Test---
+
+sample1 = rnorm(100, mean=4, sd=0.5)
+sample2 = rnorm(100, mean=2, sd=0.05)
+t.test(sample1, sample2)
+
+
+
 ##----Chi-squared Test----
 
 ab_data = data.frame('occurrence'=c(55,43,22),
