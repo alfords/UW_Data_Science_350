@@ -141,6 +141,7 @@ if(interactive()){
   plot(aggregated.df$amount/1000000~aggregated.df$num_of_tax_ids,
     xlab="Number of Customers",
     ylab="Ammount (in Millions)")
+  abline(lm(aggregated.df$amount/1000000 ~ aggregated.df$num_of_tax_ids))
   
   ##----Perform a test for equal representation-----
   weighted_probs = 1/50
