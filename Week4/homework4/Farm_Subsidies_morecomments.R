@@ -36,7 +36,7 @@ trim = function (x) gsub("^\\s+|\\s+$", "", x)
 
 ##-----Declare Functions Here-----
 
-setwd("/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week4/homework4")
+setwd("F:/PCE_Data_Science/3_Outliers_MissingData_Hypothesis")
 
 getFarmPayments <- function() {
   if(!file.exists("CAS.WDC11019.PMT11.FINAL.DT11186.TXT")) {
@@ -111,7 +111,9 @@ if(interactive()){
   con = dbConnect(dbDriver("SQLite"), db_name)
   
   # Skip writing to database if already written
-  dbWriteTable(con, "data", data)
+  if(!file.exists("data.db")) {
+    dbWriteTable(con, "data", data)
+  }
   
   # Create query to aggregate by state: sum of ammounts paid and number of farms
   query = 'SELECT ST state, sum(amount) amount, count(farm_num) num_of_tax_ids FROM DATA group by ST'
@@ -120,7 +122,6 @@ if(interactive()){
   # Create data fram from the result set and close db connection
   aggregated.df <- fetch(rs)
   dbDisconnect(con)
-  unlink("data.db")
   
   ##-----Probably do some data exploration----
   
@@ -136,18 +137,41 @@ if(interactive()){
     ylab="Ammount (in Millions)")
   
   ##----Perform a test for equal representation-----
-  weighted_probs = 1/50
-  chi.result_equal <- chisq.test(aggregated.df$amount, p = rep(weighted_probs, 50)) 
-  print("========== Testing for equal representation ==========")
-  print(chi.result_equal)
-
+  
+  # Here we are going to test if all 50 states are represented equally in the data.
+  #  If they are, the null hypothesis is that each state should have (1/50th) of occurence.
+  
+  weighted_prob = 1/50
+  
+  chi.result <- chisq.test(aggregated.df$amount, p = rep(weighted_prob,50))
+  
+  # We interpret the p-value as this:
+  #   "There is a 'p' probability of observing our sample assuming they are all equally represented by $"
+  #
+  #   - since this p-value is VERY small, we know that they are different!  We reject the null.
+  #
+  #  For this test, you tested the hypotheses:
+  #     Null:        All 50 states are equally represented in our sample by $subsidies given.
+  #     Alternative: There exists at least one difference in how the states are represented.
+  #
+  #  This should not surprise us (Rhode Island subsidies << California subsidies)
+  
+  
+  ##----Access the farms/state data-----
+  
+  # You've already done this above
+  
   ##----Derive the weights for each state----
-  state_weighted_probs <- aggregated.df$num_of_tax_ids / sum(aggregated.df$num_of_tax_ids)
+  
+  # Now you want to perform the SAME test with different weights.  We want to weight the farms by, say, # of farms/state
+  #  New weights:
+  #     State A weight = (Number of Farms in State A) / (Total Number of Farms in US)
+  
   
   ##----Perform a test for equal repreentation by farms/state-----
-  chi.result_weighted <- chisq.test(aggregated.df$amount, p = state_weighted_probs)
-  print("========== Testing for weighted farms/state representation ==========")
-  print(chi.result_weighted)
+  
+  
+  # Perform the same chi-squared test with different weights.  What about acreage of farms? I think that's in our data somewhere.
   
   ##----Output Results----
   # Acceptable to print output, log output, save in DB, or write to file. Your choice.
