@@ -60,7 +60,7 @@ getStateCodes <- function() {
     download.file(xls_file_url, xls_file_name, mode="wb")
     
     if("gdata" %in% rownames(installed.packages()) == FALSE) {
-      install.packages("EXConnect")
+      install.packages("gdata")
     }
     
     library(gdata)
@@ -68,7 +68,7 @@ getStateCodes <- function() {
     return(state_data)
   } else {
     if("gdata" %in% rownames(installed.packages()) == FALSE) {
-      install.packages("EXConnect")
+      install.packages("gdata")
     }
     
     library(gdata)
@@ -124,7 +124,9 @@ if(interactive()){
   
   # Create data fram from the result set and close db connection
   aggregated.df <- fetch(rs)
-  dbDisconnect(con)
+  
+  # closing dabase suprssing warnings
+  suppressWarnings(dbDisconnect(con))
   unlink("data.db")
   
   ##-----Probably do some data exploration----
@@ -153,10 +155,6 @@ if(interactive()){
   chi.result_weighted <- chisq.test(aggregated.df$amount, p = state_weighted_probs)
   print("========== Testing for weighted farms/state representation ==========")
   print(chi.result_weighted)
-  
-  ##----Output Results----
-  # Acceptable to print output, log output, save in DB, or write to file. Your choice.
-  
 }
 
 
