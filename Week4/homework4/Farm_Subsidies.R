@@ -106,8 +106,13 @@ if(interactive()){
   ##----Merge files together----
   data = merge(data, county_state_codes, by=c("state_code", "county_code"), all.x=TRUE)
   
-  ##----Write data to sqllite database (and test correctness)-----
+  ##----Write data to sqllite database-----
   db_name = 'data.db'
+  if (file.exists(db_name)){
+      unlink(db_name)
+  }
+  
+  # Connect to sqlite database
   con = dbConnect(dbDriver("SQLite"), db_name)
   
   # Skip writing to database if already written
