@@ -86,17 +86,21 @@ if(interactive()){
   addHandler(writeToFile, file="testing.log", level='DEBUG')
   
   # Get Farm Payments file
+  loginfo("Getting Farm Payments Data")
   data <- getFarmPayments()
   
   # Assign column names to Farm Payments data
+  loginfo("Assigning column names to Farm Payments data")
   names(data) <- c('state_code', 'county_code', 'cust_num', 'program_code', 'program_year',
                   'commodity_code', 'amount', 'date', 'cat_code', 'farm_num',
                   'calendar_year', 'fiscal_year', 'seq_num')
   
   ##----Trim Whitespaces-----
+  loginfo("Creating data from from Payments DAta")
   data <- as.data.frame(apply(data,2,trim), stringsAsFactors=FALSE)
   
   ##------Read State/County File-----
+  loginfo("Constructing fields to merge payments and state data")
   county_state_codes = getStateCodes()
   county_state_codes$state_code = county_state_codes$Stcd
   county_state_codes$Stcd = NULL
@@ -104,9 +108,11 @@ if(interactive()){
   county_state_codes$Cntycd = NULL
   
   ##----Merge files together----
+  loginfo("Getting state codes")
   data = merge(data, county_state_codes, by=c("state_code", "county_code"), all.x=TRUE)
   
   ##----Write data to sqllite database-----
+  loginfo("Creating temprary database (removing if exists)")
   db_name = 'data.db'
   if (file.exists(db_name)){
       unlink(db_name)
@@ -116,16 +122,20 @@ if(interactive()){
   con = dbConnect(dbDriver("SQLite"), db_name)
   
   # Skip writing to database if already written
+  loginfo("Write data frame to the database")
   dbWriteTable(con, "data", data)
   
   # Create query to aggregate by state: sum of ammounts paid and number of farms
   query = 'SELECT ST state, sum(amount) amount, count(farm_num) num_of_tax_ids FROM DATA group by ST'
+  loginfo(paste("Executing query:", query))
   rs = dbSendQuery(con, query)
   
   # Create data fram from the result set and close db connection
+  loginfo("Creating aggredated.df for acutal data analyis")
   aggregated.df <- fetch(rs)
   
   # closing dabase suprssing warnings
+  loginfo("Removing sqlite database file")
   suppressWarnings(dbDisconnect(con))
   unlink("data.db")
   
@@ -137,13 +147,18 @@ if(interactive()){
   
   # There appers to be a linear relationship between the number of farms
   # and the amount of subsidies received (in millions) with two two outliers
-  # who received more than 50 millions in subsidies
+  # who received more than 50 millions in subsidies. Need to run further tests to confirm
+  loginfo("Running visual analysis")
   plot(aggregated.df$amount/1000000~aggregated.df$num_of_tax_ids,
     xlab="Number of Customers",
     ylab="Ammount (in Millions)")
   abline(lm(aggregated.df$amount/1000000 ~ aggregated.df$num_of_tax_ids))
   
+  ##----Forcing to use decimal point
+  options("scipen"=100, "digits"=4)
+  
   ##----Perform a test for equal representation-----
+  loginfo("Executiing test for equal representation")
   weighted_probs = 1/50
   chi.result_equal <- chisq.test(aggregated.df$amount, p = rep(weighted_probs, 50)) 
   print("========== Testing for equal representation ==========")
@@ -153,6 +168,7 @@ if(interactive()){
   state_weighted_probs <- aggregated.df$num_of_tax_ids / sum(aggregated.df$num_of_tax_ids)
   
   ##----Perform a test for equal repreentation by farms/state-----
+  loginfo("Executing tests for weighted representation")
   chi.result_weighted <- chisq.test(aggregated.df$amount, p = state_weighted_probs)
   print("========== Testing for weighted farms/state representation ==========")
   print(chi.result_weighted)

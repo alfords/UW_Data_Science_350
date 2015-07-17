@@ -1,0 +1,13 @@
+2015-07-17 09:13:48 INFO::Getting Farm Payments Data
+2015-07-17 09:14:20 INFO::Assigning column names to Farm Payments data
+2015-07-17 09:14:20 INFO::Creating data from from Payments DAta
+2015-07-17 09:14:48 INFO::Constructing fields to merge payments and state data
+2015-07-17 09:14:49 INFO::Getting state codes
+2015-07-17 09:15:04 INFO::Creating temprary database (removing if exists)
+2015-07-17 09:15:04 INFO::Write data frame to the database
+2015-07-17 09:15:08 INFO::Executing query: SELECT ST state, sum(amount) amount, count(farm_num) num_of_tax_ids FROM DATA group by ST
+2015-07-17 09:15:08 INFO::Creating aggredated.df for acutal data analyis
+2015-07-17 09:15:12 INFO::Removing sqlite database file
+2015-07-17 09:15:12 INFO::Running visual analysis
+2015-07-17 09:15:12 INFO::Executiing test for equal representation
+2015-07-17 09:15:12 INFO::Executing tests for weighted representation
