@@ -1,0 +1,11 @@
+2015-07-20 23:16:23 INFO::Begin reading file
+2015-07-20 23:16:23 INFO::Completed reading file
+2015-07-20 23:16:23 INFO::Sum up values by column
+2015-07-20 23:16:23 INFO::Extracting x values - Crude Rate
+2015-07-20 23:16:23 INFO::Extracting y values - Hospitalizations
+2015-07-20 23:16:23 INFO::Running diff() to reduce the scale of X and Y variables
+2015-07-20 23:18:24 INFO::Begin reading file
+2015-07-20 23:18:24 INFO::Completed reading file
+2015-07-20 23:18:24 INFO::Sum up values by column
+2015-07-20 23:18:24 INFO::Extracting X-values - Crude Rate and Y-values - Hospitalizations
+2015-07-20 23:18:24 INFO::Running diff() to reduce the scale of X and Y variables
