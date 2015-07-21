@@ -15,7 +15,7 @@
 ##-----Twitter Text Mining-----
 library(twitteR)
 library(stringr)
-setwd('E:/Work/Teaching/PCE_Data_Science/3_Outliers_MissingData_Hypothesis')
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5')
 
 ##-----Oath Setup-----
 twit_cred = read.csv('twitter_cred.csv', stringsAsFactors=FALSE)

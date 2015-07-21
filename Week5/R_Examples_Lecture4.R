@@ -10,6 +10,7 @@
 ##
 ##--------------------------------------------
 
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5')
 
 ##-----K-S Test-----
 
@@ -37,7 +38,7 @@ k_index = which.max(abs(y_cdf1-y_cdf2))
 k_s_x = x_seq[k_index]
 # Add to plot
 lines(c(k_s_x,k_s_x), c(y_cdf1[k_index],y_cdf2[k_index]),
-      col='black', lwd=2)
+      col='black', lwd=4)
 
 # Create k-s statistic function
 ks_stat = function(x_min,x_max, dist_a, dist_b){
@@ -113,7 +114,7 @@ plot(density(x)) # Definitely not normal
 # generate 100 samples
 x_samples = lapply(1:500, function(i) sample(x, size=50, replace=TRUE))
 x_means = lapply(x_samples, mean)
-hist(unlist(x_means))
+hist(unlist(x_means), n=30)
 qqnorm(unlist(x_means)) # Yay normality!
 
 pop_mean_estimate = mean(unlist(x_means))
@@ -152,7 +153,7 @@ alpha_level = 0.95
 scaled_var = sample_var/sqrt(n)
 
 # How many sd's away from the mean is our cutoff?
-n_sds = qnorm(1+alpha_level)/2)
+n_sds = qnorm((1+alpha_level)/2)
 # or
 n_sds = -qnorm((1-alpha_level)/2)
 
@@ -222,6 +223,7 @@ slope_min = slopes_test[which.min(sse_slopes)]
 y_avg = rep(mean(true_y), length(x))
 plot(x,y,pch=16)
 lines(x,y_avg)
+
 
 SST = sum((y - y_avg)^2)  # Sum of Squares Total
 
