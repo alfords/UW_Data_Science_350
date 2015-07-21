@@ -37,7 +37,7 @@ if(interactive()) {
     y_vals = data_sums[grepl('^Hospitalizations.[0-9]+$', names(data_sums), perl = TRUE)]
 
     # Delta's for X and Y - derived using diff() function
-    loginfo("Running diff() to reduce the scale of X and Y variables")
+    loginfo("Running diff() produce deltas of X and Y variables")
     x_diffs = diff(x_vals)
     y_diffs = diff(y_vals)
     
