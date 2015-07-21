@@ -13,7 +13,8 @@ simple_lm <- function(x, y, title) {
 if(interactive()) {
     
     # Set working directory
-    setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5/homework')
+    setwd('C:/Users/Aleksey/Documents/School/UW_Data_Science/UW_Data_Science_350/Week5/homework')
+    # setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5/homework')
     
     # Import libraries
     require(logging)
@@ -43,7 +44,11 @@ if(interactive()) {
     
     # Produce simple graph (visual exploration of Curde Admission vs. Hospitalization)
     simple_lm(x_vals, y_vals, "Crude Admission vs. Hospitalization")
+    fit1 <- lm(y_vals ~ x_vals)
+    summary(fit1)
     
     # Produce simple graph (visual exploration of Deltas of Cruda Admissin vs. Hospitalization)
     simple_lm(x_diffs, y_diffs, "Deltas: Crude Admission vs Hospitalization")
+    fit2 <- lm(y_diffs ~ x_diffs)
+    summary(fit2)
 }

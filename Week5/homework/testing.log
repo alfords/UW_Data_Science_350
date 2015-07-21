@@ -9,3 +9,18 @@
 2015-07-20 23:18:24 INFO::Sum up values by column
 2015-07-20 23:18:24 INFO::Extracting X-values - Crude Rate and Y-values - Hospitalizations
 2015-07-20 23:18:24 INFO::Running diff() to reduce the scale of X and Y variables
+2015-07-21 12:48:34 INFO::Begin reading file
+2015-07-21 12:48:34 INFO::Completed reading file
+2015-07-21 12:48:34 INFO::Sum up values by column
+2015-07-21 12:48:34 INFO::Extracting X-values - Crude Rate and Y-values - Hospitalizations
+2015-07-21 12:48:34 INFO::Running diff() produce deltas of X and Y variables
+2015-07-21 12:52:51 INFO::Begin reading file
+2015-07-21 12:52:51 INFO::Completed reading file
+2015-07-21 12:52:51 INFO::Sum up values by column
+2015-07-21 12:52:51 INFO::Extracting X-values - Crude Rate and Y-values - Hospitalizations
+2015-07-21 12:52:51 INFO::Running diff() produce deltas of X and Y variables
+2015-07-21 12:53:59 INFO::Begin reading file
+2015-07-21 12:54:01 INFO::Completed reading file
+2015-07-21 12:54:03 INFO::Sum up values by column
+2015-07-21 12:54:09 INFO::Extracting X-values - Crude Rate and Y-values - Hospitalizations
+2015-07-21 12:54:15 INFO::Running diff() produce deltas of X and Y variables
