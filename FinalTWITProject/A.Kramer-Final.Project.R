@@ -15,8 +15,7 @@
 ##-----Twitter Text Mining-----
 library(twitteR)
 library(stringr)
-#setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5')
-setwd('C:/Users/Aleksey/Documents/School/UW_Data_Science/UW_Data_Science_350/Week5/')
+setwd('C:/Users/Aleksey/Documents/School/UW_Data_Science/UW_Data_Science_350/FinalTWITProject')
 
 ##-----Oath Setup-----
 twit_cred = read.csv('twitter_cred.csv', stringsAsFactors=FALSE)
@@ -92,4 +91,3 @@ t.test(ds$length, s$length, alternative="less") # Welch's T-Test (one sided)
 test_vals = c(ds$length, s$length)
 test_groups = c(rep(0,nrow(ds)), rep(1,nrow(s))) # Must contain exactly 2 different levels
 t.test(test_vals ~ test_groups)
-

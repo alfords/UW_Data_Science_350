@@ -10,7 +10,8 @@
 ##
 ##--------------------------------------------
 
-setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5')
+#setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5')
+setwd('C:/Users/Aleksey/Documents/School/UW_Data_Science/UW_Data_Science_350/Week5/')
 
 ##-----K-S Test-----
 
