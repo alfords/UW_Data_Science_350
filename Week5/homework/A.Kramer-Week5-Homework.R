@@ -8,6 +8,7 @@ simple_lm <- function(x, y, title) {
     plot(x, y, pch = 16, main = title)
     best_fit_line <- lm(y ~ x)
     abline(best_fit_line)
+    return(best_fit_line)
 }
 
 if(interactive()) {
@@ -42,8 +43,10 @@ if(interactive()) {
     y_diffs = diff(y_vals)
     
     # Produce simple graph (visual exploration of Curde Admission vs. Hospitalization)
-    simple_lm(x_vals, y_vals, "Crude Admission vs. Hospitalization")
+    fit1 <- simple_lm(x_vals, y_vals, "Crude Admission vs. Hospitalization")
+    summary(fit1)
     
     # Produce simple graph (visual exploration of Deltas of Cruda Admissin vs. Hospitalization)
-    simple_lm(x_diffs, y_diffs, "Deltas: Crude Admission vs Hospitalization")
+    fit2 <- simple_lm(x_diffs, y_diffs, "Deltas: Crude Admission vs Hospitalization")
+    summary(fit2)
 }
