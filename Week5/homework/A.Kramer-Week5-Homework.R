@@ -14,8 +14,8 @@ simple_lm <- function(x, y, title) {
 if(interactive()) {
     
     # Set working directory
-    setwd('C:/Users/Aleksey/Documents/School/UW_Data_Science/UW_Data_Science_350/Week5/homework')
-    # setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5/homework')
+    # setwd('C:/Users/Aleksey/Documents/School/UW_Data_Science/UW_Data_Science_350/Week5/homework')
+    setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week5/homework')
     
     # Import libraries
     require(logging)
