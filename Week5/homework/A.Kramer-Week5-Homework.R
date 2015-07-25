@@ -51,3 +51,23 @@ if(interactive()) {
     fit2 <- simple_lm(x_diffs, y_diffs, "Deltas: Crude Admission vs Hospitalization")
     summary(fit2)
 }
+
+#  Comment and/or print your findings at the end. (1-2 full paragraphs with full sentences).
+#
+#  Be sure to interpret the slopes for each model (Some good examples here: 
+#           http://www.austincc.edu/mparker/1342/lessons/less5-8/interpret_slope.pdf)
+#
+#
+#  Comment on the differences in R^2 between the two- what does this mean?
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
