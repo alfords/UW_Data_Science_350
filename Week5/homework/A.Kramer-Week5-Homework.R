@@ -53,20 +53,20 @@ if(interactive()) {
 }
 
 
-#  Comparing efect of crude admission rate yelded the following result: the linear model can
+#  Comparing effect of crude admission rate yielded the following result: the linear model can
 #       explain only about 40% of cases.  Thus, the null hypothesis is rejected, meaning that
 #       there is no direct relationship between the increase in crude admissi0n (x axis) and 
-#       actual hostpitalization (y axis).ss
+#       actual hospitalization (y axis).
 #
 #  Comparing the deltas for crude admission vs. hospitalization, the model (fit2) can explain roughly
 #       96% of the cases.  Thus the null hypothesis is affirmed. Y-intercept for the model is -58.744.
 #       The model clearly shows that for every delta of years of crud admission, there is a strong linear
-#       relationship between the detas between hospitalizations per year.
+#       relationship between the deltas between hospitalizations per year.
 #       
 #  Comparing crude admission vs. hospitalizations compares raw data, which is heavily influenced by the
 #       annual number of crude admissions and hospitalizations (fit1).  Comparing the delta of crude admissions
-#       between the years vs. delta of hospitalizations between the years elliminates the effect of 
+#       between the years vs. delta of hospitalizations between the years eliminates the effect of 
 #       raw numbers, thus comparing the relationship between annual crude admission and annual hospitalization rate (fit2).
 #       This one took me a while to figure out.
-#
+
 
