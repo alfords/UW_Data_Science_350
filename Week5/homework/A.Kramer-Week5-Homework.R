@@ -54,6 +54,14 @@ if(interactive()) {
 
 #  Comment and/or print your findings at the end. (1-2 full paragraphs with full sentences).
 #
+#  Comparing efect of crude admission rate yelded the following result: the linear model can
+#       explain only about 40% of cases.  Thus, the null hypothesis is rejected, meaning that
+#       there is no direct relationship between the increas in crude admissin (x axis) and 
+#       actual hostpitalization (y axis). There is a 3.17 (in average) increase in hospitalization
+#       per unit change in crude addmission, whith y-interpecpt being 3509.304.
+#
+#  Comparing the 
+#
 #  Be sure to interpret the slopes for each model (Some good examples here: 
 #           http://www.austincc.edu/mparker/1342/lessons/less5-8/interpret_slope.pdf)
 #
