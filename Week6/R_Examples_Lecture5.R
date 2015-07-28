@@ -10,11 +10,15 @@
 ##
 ##--------------------------------------------
 
-setwd('E:/Work/Teaching/PCE_Data_Science/5_HypothesisTesting_ConfidenceIntervals')
+# setwd('E:/Work/Teaching/PCE_Data_Science/5_HypothesisTesting_ConfidenceIntervals')
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week6')
 
 library(MASS)
 
-##-----Look at transformations-----
+
+##----------------------------------------------------
+##----------------------------------------------------
+## DEMO 1 -----Look at transformations-----
 
 data(attenu)
 summary(attenu)
@@ -57,22 +61,34 @@ plot(best_line)
 # Fourth plot: Residuals vs. Leverage
 #   - Measurement of Points impact on fit.  Look for zero-flat trend.
 
-##----Plot the Residuals-----
-# Residuals vs. Fitted
+
+
+
+##----------------------------------------------------
+##----------------------------------------------------
+## DEMO 2 ----Plot the Residuals-----
+# Residuals vs. Fitted ------ my comments: should not be a relationship between the two
 plot(best_line$residuals, best_line$fitted.values, pch=16,
      main="Residual Plot", xlab="Residuals", ylab="Fitted Values")
 residual_trend_line = lm(best_line$fitted.values ~ best_line$residuals)
 abline(residual_trend_line, col='red', lwd=2)
 summary(residual_trend_line)
 
-# Residuals vs. Y:
+# Residuals vs. Y:  ----- my comments: Should not look fan-shaped to be good
 plot(best_line$residuals, log(attenu$dist), pch=16,
      main="Residual Plot", xlab="Residuals", ylab="Y Values")
 residual_trend_line = lm(log(attenu$dist) ~ best_line$residuals)
 abline(residual_trend_line, col='red', lwd=2)
 summary(residual_trend_line)
 
+
+
+
+
+##----------------------------------------------------
+##----------------------------------------------------
 ##-----Multiple Regression Example------
+## DEMO 3 - my comments
 data = read.table('imports-85.data', sep=",", header=FALSE, na.strings = c("NA","?"))
 columns = c('symboling','normalized_losses','make','fuel_type','aspiration',
             'num_of_doors','body_style','drive_wheels','engine_location','wheel_base',
@@ -128,18 +144,19 @@ if (log_price_weight_summary$coefficients[2] > 0){ # Positive Slope
 }
 
 # This can all easily be done via 'predict()' function
+# my comments - this is the easy way 
 plot(data$curb_weight, log(data$price), pch=16, main="Log-Price vs. Weight",
      xlab="Weight", ylab="log(Price)")
 log_price_weight_model = lm(log(data$price) ~ data$curb_weight)
 abline(log_price_weight_model, lwd=2, col="red")
 
-conf_bands = predict(log_price_weight_model,newdata=data, interval="confidence")
+conf_bands = predict(log_price_weight_model,newdata=data, interval="confidence", levels = 95)
 conf_bands = conf_bands[order(conf_bands[,1]),]
 lines(sort(data$curb_weight), conf_bands[,2], col='green', lwd=3)
 lines(sort(data$curb_weight), conf_bands[,3], col='green', lwd=3)
 
 # And prediction bands:
-pred_bands = predict(log_price_weight_model,newdata=data, interval="prediction")
+pred_bands = predict(log_price_weight_model,newdata=data, interval="prediction", levels = 95)
 pred_bands = pred_bands[order(pred_bands[,1]),]
 lines(sort(data$curb_weight), pred_bands[,2], col='green', lwd=3, lty=2)
 lines(sort(data$curb_weight), pred_bands[,3], col='green', lwd=3, lty=2)
@@ -230,6 +247,7 @@ wiki_edges = read.csv("wikipedia_edge_list.csv", stringsAsFactors=FALSE)
 wiki_degree_list = table(c(wiki_edges$Source))
 wiki_mean_degree = mean(wiki_degree_list)
 
+# histogram
 wiki_hist = hist(wiki_degree_list, breaks=50, freq=FALSE)
 
 # Test Power law distribution
