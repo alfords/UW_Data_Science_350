@@ -6,7 +6,8 @@
 require(igraph)
 require(logging)
 
-setwd('C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\Week6\\homework')
+# setwd('C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\Week6\\homework')
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week6/homework')
 
 if(interactive()){
   # Setup Test Logger

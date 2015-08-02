@@ -27,3 +27,13 @@
 2015-07-30 10:16:45 INFO::Get the mean required to produce poisson distibution
 2015-07-30 10:16:45 INFO::Generating and graphing poison distibution
 2015-07-30 10:16:45 INFO::Running Kolmogorov-Smirnov test of facebook_edge_list and poisson_dist
+2015-08-01 17:19:03 INFO::Read facebook_edgee_list.csv
+2015-08-01 17:19:03 INFO::Filter complete cases
+2015-08-01 17:19:03 INFO::Generate facebook degree list based on Source variable
+2015-08-01 17:19:03 INFO::Store a mean of facebook degree list
+2015-08-01 17:19:03 INFO::Generating histogram of facebook degree list
+2015-08-01 17:19:03 INFO::Fit power law
+2015-08-01 17:19:03 INFO::Determine the length needed to produce poisson distribution
+2015-08-01 17:19:03 INFO::Get the mean required to produce poisson distibution
+2015-08-01 17:19:03 INFO::Generating and graphing poison distibution
+2015-08-01 17:19:03 INFO::Running Kolmogorov-Smirnov test of facebook_edge_list and poisson_dist
