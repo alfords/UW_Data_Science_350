@@ -1,14 +1,21 @@
-#HW 6 Hint
-setwd('E:/Work/Teaching/PCE_Data_Science/6_Regression_FeatureSelection/HW')
+##---------------------------------------------------------------
+## Data Science 350
+## Week 7 homework 
+## Aleksey Kramer
+##---------------------------------------------------------------
+
 library(pls)
 library(glmnet)
 
 # Retrieve Breast Cancer Expression Data From the following Study:
 #http://www.ncbi.nlm.nih.gov/pubmed/21532620
 
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week7/homework')
 
+# Read the study data in memory
 micro_data=read.table("MicroArray.txt", header=TRUE)
 
+# Explora micro_data
 dim(micro_data)
 
 # Normalize each column

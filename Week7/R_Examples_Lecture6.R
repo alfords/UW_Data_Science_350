@@ -14,8 +14,9 @@ library(raster)
 library(glmnet)
 library(pls)
 library(zoo)
+library(MASS)
 
-##-----Linear Algebra Examples-----
+##-----Linear Algebra Examples and Introduction -----
 
 A = matrix(runif(12), nrow=4)
 
@@ -60,7 +61,7 @@ square_matrix %*% eye4
 # Mulitiply by inverse:
 round(square_matrix %*% ginv(square_matrix))
 
-# SVD of square matrix:
+# SVD of square matrix -- Slide 10:
 
 square_svd = svd(square_matrix)
 
@@ -73,7 +74,7 @@ X %*% Y %*% Z # Should be equal to square_matrix
 round(X %*% t(X)) # Nice properties of X,Z is that
 round(Z %*% t(Z)) #    the transpose is equal to the inverse!
 
-##----- SVD in R-----
+##----- SVD in R ---- SLIDE 15 -----
 
 # Create a dataset with patterns in R:
 
@@ -104,7 +105,7 @@ lines(svd_component2_x,svd_component2_y, lwd=2, col='red')
 plot(data_svd$u[,1], data_svd$u[,2], pch=16, main='Transformed Data')
 grid(lwd=2, col='blue')
 
-# This can also be done with R's prcomp() function:
+# This can also be done with R's prcomp() function one-liner of what was done before:
 pr_comp1 = prcomp(correlated_data, scale. = TRUE)
 plot(pr_comp1$x, pch=16)
 
@@ -144,6 +145,7 @@ head(data_matrix)
 pc_data_matrix = prcomp(data_matrix)
 
 # Plot the magnitude of the principal components:
+plot(pc_data_matrix$sdev, type="l")
 plot(pc_data_matrix$sdev)
 # Here you can see we don't need all the components.  The magnitudes of the
 #   associated eigenvalues go to zero quite fast.
@@ -170,7 +172,7 @@ plot(aic_by_num_pc, type='l', lwd=2,
 abline(h=AIC(log_price_all_model), lwd=2, col='red')
 which.min(aic_by_num_pc) # 59 principal components!
 
-##-----SVD as a type of Regression: Total Least Squares------
+##-----SVD as a type of Regression: Total Least Squares SLIDE 17-----
 
 x = 1:25
 y = x + 6*runif(length(x))
@@ -213,7 +215,7 @@ for (i in 1:length(x)){
   lines(x_temp, y_temp, lty=2, col="green")
 }
 
-##-----Compress Information via SVD-----
+##-----Compress Information via SVD SLIDE 19-----
 
 yoda = readPNG("yoda.png")
 # Change 3d array to 1d grayscale
@@ -288,7 +290,7 @@ as.numeric((orig_size - stored_size)/orig_size) # percentage
 rm(list = ls())
 gc()
 
-##-----Lasso Regression-----
+##-----Lasso Regression SLIDE 23-----
 predictor = log(data$price)
 xfactors = model.matrix(log(price) ~ . - engine_location, data = data)[,-1]
 
