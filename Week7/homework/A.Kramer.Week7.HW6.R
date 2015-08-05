@@ -4,14 +4,14 @@
 ## Aleksey Kramer
 ##---------------------------------------------------------------
 
-library(pls)
-library(glmnet)
+require(pls)
+require(glmnet)
 
 # Retrieve Breast Cancer Expression Data From the following Study:
 #http://www.ncbi.nlm.nih.gov/pubmed/21532620
 
-# setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week7/homework')
-setwd('C:\\Users\\db345c\\Desktop\\UW_TRAIN\\Week7\\homework')
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week7/homework')
+# setwd('C:\\Users\\db345c\\Desktop\\UW_TRAIN\\Week7\\homework')
 
 # Read the study data in memory
 micro_data=read.table("MicroArray.txt", header=TRUE)
@@ -69,10 +69,10 @@ repeat{
 best_coef = best_coef[best_coef > 1e-10]
 
 # extract names
-m_names <- paste(names(best_coef)[2:length(best_coef)], collapse = " + ")
+m_names <- paste(names(best_coef)[2:length(best_coef)], collapse = " + micro_frame$")
 
 # Plug this into the glm(...,family='binomial') to get the logistic outcome
-evac_logit = glm(outcomes ~ m_names, data = micro_frame, family = binomial)
+m_outcome <- glm(micro_frame$outcomes ~ micro_frame[,best_coef], family = binomial)
 
 # Compare with the real outcome, cancer_samples above
 
