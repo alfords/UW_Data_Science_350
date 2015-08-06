@@ -1,0 +1,14 @@
+2015-08-05 23:15:00 INFO::# Read the study data in memory
+2015-08-05 23:15:00 INFO::# Explora micro_data
+2015-08-05 23:15:00 INFO::# Normalize each column
+2015-08-05 23:15:00 INFO::# Breast Cancer Samples:
+2015-08-05 23:15:00 INFO::# Convert to data.frame
+2015-08-05 23:15:01 INFO::# Create predictor and xfactors
+2015-08-05 23:15:01 INFO::Using glmnet
+2015-08-05 23:15:01 INFO::Printing lasso coefficients
+2015-08-05 23:15:01 INFO::# Now use cv.glmnet to test different lasso cutoffs
+2015-08-05 23:15:02 INFO::# find the minumum lambda.min
+2015-08-05 23:15:02 INFO::# Find the coefficients that are greater than zero
+2015-08-05 23:15:03 INFO::# extract names
+2015-08-05 23:15:03 INFO::# Plug this into the glm(...,family='binomial') to get the logistic outcome
+2015-08-05 23:15:03 INFO::# Comparing with the real outcome, cancer_samples above
