@@ -12,3 +12,33 @@
 2015-08-05 23:15:03 INFO::# extract names
 2015-08-05 23:15:03 INFO::# Plug this into the glm(...,family='binomial') to get the logistic outcome
 2015-08-05 23:15:03 INFO::# Comparing with the real outcome, cancer_samples above
+2015-08-06 10:02:32 INFO::# Read the study data in memory
+2015-08-06 10:02:33 INFO::# Explora micro_data
+2015-08-06 10:02:33 INFO::# Normalize each column
+2015-08-06 10:02:33 INFO::# Breast Cancer Samples:
+2015-08-06 10:02:33 INFO::# Convert to data.frame
+2015-08-06 10:02:33 INFO::# Create predictor and xfactors
+2015-08-06 10:02:33 INFO::Using glmnet
+2015-08-06 10:02:33 INFO::Printing lasso coefficients
+2015-08-06 10:02:33 INFO::# Now use cv.glmnet to test different lasso cutoffs
+2015-08-06 10:02:35 INFO::# find the minumum lambda.min
+2015-08-06 10:02:35 INFO::# Find the coefficients that are greater than zero
+2015-08-06 10:03:33 INFO::Finding best coefficient
+2015-08-06 10:03:33 INFO::# extract names
+2015-08-06 10:03:33 INFO::# Plug this into the glm(...,family='binomial') to get the logistic outcome
+2015-08-06 10:03:33 INFO::# Comparing with the real outcome, cancer_samples above
+2015-08-06 10:34:11 INFO::# Read the study data in memory
+2015-08-06 10:34:11 INFO::# Explora micro_data
+2015-08-06 10:34:11 INFO::# Normalize each column
+2015-08-06 10:34:11 INFO::# Breast Cancer Samples:
+2015-08-06 10:34:11 INFO::# Convert to data.frame
+2015-08-06 10:34:12 INFO::# Create predictor and xfactors
+2015-08-06 10:34:12 INFO::Using glmnet
+2015-08-06 10:34:12 INFO::Printing lasso coefficients
+2015-08-06 10:34:12 INFO::# Now use cv.glmnet to test different lasso cutoffs
+2015-08-06 10:34:13 INFO::# find the minumum lambda.min
+2015-08-06 10:34:13 INFO::# Find the coefficients that are greater than zero
+2015-08-06 10:34:48 INFO::Finding best coefficient
+2015-08-06 10:34:48 INFO::# extract names
+2015-08-06 10:34:48 INFO::# Plug this into the glm(...,family='binomial') to get the logistic outcome
+2015-08-06 10:34:48 INFO::# Comparing with the real outcome, cancer_samples above

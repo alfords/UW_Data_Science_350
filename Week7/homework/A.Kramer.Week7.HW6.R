@@ -90,4 +90,9 @@ if(interactive()) {
     print(round(as.numeric(m_outcome$fitted.values)))
 }
 
+# COMMENTS ------------------
+# Apperently the sampeles and predictions match.
+# This is stragne.  Either my model is REALLY good (which I seriously doubt),
+# or I made a mistake and cannot find out where exactly.
+# END OF COMMENTS -----------
 
