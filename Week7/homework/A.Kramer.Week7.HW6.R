@@ -78,4 +78,6 @@ m_outcome <- glm(as.formula(formula_string), data = micro_frame, family = binomi
 # Compare with the real outcome, cancer_samples above
 summary(m_outcome)
 cancer_samples
+round(as.numeric(m_outcome$fitted.values))
+
 
