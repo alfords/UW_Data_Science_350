@@ -38,8 +38,6 @@ micro_frame$outcomes <- cancer_samples
 predictor <- cancer_samples
 
 outcomes_lasso = glmnet(t(micro_data), predictor, alpha=1, family='binomial')
-#xfactors <- model.matrix(outcomes ~ . , data = micro_frame)[,-1]
-#outcomes_lasso = glmnet(xfactors, predictor, alpha=1, family='binomial')
 
 plot(outcomes_lasso, xvar="lambda")
 outcomes_lasso 
