@@ -36,18 +36,18 @@ micro_frame$outcomes <- cancer_samples
 
 # Create predictor and xfactors
 predictor <- cancer_samples
-xfactors <- model.matrix(outcomes ~ . , data = micro_frame)[,-1]
 
-outcomes_lasso = glmnet(xfactors, predictor, alpha=1, family='binomial')
+outcomes_lasso = glmnet(t(micro_data), predictor, alpha=1, family='binomial')
+#xfactors <- model.matrix(outcomes ~ . , data = micro_frame)[,-1]
+#outcomes_lasso = glmnet(xfactors, predictor, alpha=1, family='binomial')
 
 plot(outcomes_lasso, xvar="lambda")
-
 outcomes_lasso 
 
 coef(outcomes_lasso)[,20][coef(outcomes_lasso)[,20]>1e-10]
 
 # Now use cv.glmnet to test different lasso cutoffs
-outcomes_lasso_cv = cv.glmnet(xfactors, predictor, alpha=1, family='binomial')
+outcomes_lasso_cv = cv.glmnet(t(micro_data), predictor, alpha=1, family='binomial')
 plot(outcomes_lasso_cv) # There is a minimum in MSE!
 
 
@@ -57,7 +57,7 @@ best_lambda = outcomes_lasso_cv$lambda.min
 # Find the coefficients that are greater than zero
 # Takes some time to compute
 repeat{
-    outcomes_lasso_cv = cv.glmnet(xfactors, predictor, alpha=1, family='binomial')
+    outcomes_lasso_cv = cv.glmnet(t(micro_data), predictor, alpha=1, family='binomial')
     best_lambda = outcomes_lasso_cv$lambda.min
     best_coef = coef(outcomes_lasso)[,outcomes_lasso$lambda == best_lambda]
     if(length(which(best_coef > 0) > 0)){
@@ -69,11 +69,13 @@ repeat{
 best_coef = best_coef[best_coef > 1e-10]
 
 # extract names
-m_names <- paste(names(best_coef)[2:length(best_coef)], collapse = " + ")
+m_names <- gsub("V","X",paste(names(best_coef)[2:length(best_coef)], collapse = " + "))
 formula_string <- paste("outcomes ~ ", m_names, collapse = "")
 
 # Plug this into the glm(...,family='binomial') to get the logistic outcome
 m_outcome <- glm(as.formula(formula_string), data = micro_frame, family = binomial)
 
 # Compare with the real outcome, cancer_samples above
+summary(m_outcome)
+cancer_samples
 
