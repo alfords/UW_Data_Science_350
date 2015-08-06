@@ -61,7 +61,7 @@ if(interactive()) {
     best_lambda = outcomes_lasso_cv$lambda.min
 
     loginfo("# Find the coefficients that are greater than zero")
-    # Takes some time to compute
+    # may take some time to compute
     repeat{
         outcomes_lasso_cv = cv.glmnet(t(micro_data), predictor, alpha=1, family='binomial')
         best_lambda = outcomes_lasso_cv$lambda.min
@@ -72,6 +72,7 @@ if(interactive()) {
         }
     }
 
+    loginfo("Finding best coefficient")
     best_coef = best_coef[best_coef > 1e-10]
 
     loginfo("# extract names")
