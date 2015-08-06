@@ -20,16 +20,16 @@ micro_data=read.table("MicroArray.txt", header=TRUE)
 dim(micro_data)
 
 # Normalize each column
-micro_data = scale(micro_data)
+micro_data <- scale(micro_data)
 
 # Breast Cancer Samples:
-cancer_samples = c(0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0,0,0,1)
+cancer_samples <- c(0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0,0,0,1)
 
 # Think of this as ~ 10,000 possible variables (genes) to predict 19 outcomes.
 
 # Convert to data.frame
-micro_frame = data.frame(t(micro_data))
-micro_frame$outcomes = cancer_samples
+micro_frame <- data.frame(t(micro_data))
+micro_frame$outcomes <- cancer_samples
 
 ##-----Lasso Regression-----
 # user glmnet, where family = 'binomial'
@@ -69,10 +69,11 @@ repeat{
 best_coef = best_coef[best_coef > 1e-10]
 
 # extract names
-m_names <- paste(names(best_coef)[2:length(best_coef)], collapse = " + micro_frame$")
+m_names <- paste(names(best_coef)[2:length(best_coef)], collapse = " + ")
+formula_string <- paste("outcomes ~ ", m_names, collapse = "")
 
 # Plug this into the glm(...,family='binomial') to get the logistic outcome
-m_outcome <- glm(micro_frame$outcomes ~ micro_frame[,best_coef], family = binomial)
+m_outcome <- glm(as.formula(formula_string), data = micro_frame, family = binomial)
 
 # Compare with the real outcome, cancer_samples above
 
