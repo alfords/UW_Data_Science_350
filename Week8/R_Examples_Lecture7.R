@@ -6,7 +6,8 @@
 ##
 ##--------------------------------------------
 
-setwd('E:/Work/Teaching/PCE_Data_Science/7_TimeSeries_SpatialStats_Bayes')
+#setwd('E:/Work/Teaching/PCE_Data_Science/7_TimeSeries_SpatialStats_Bayes')
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week8')
 
 # Load Libraries
 library(TSA)
@@ -41,8 +42,8 @@ potential_periods = (1/potential_frequencies) * mean(diff(x))
 
 ##------Simple Exponential Smoothing-----
 
-dj_data = read.csv("DJIA.csv")
-dj_data$Date = as.Date(dj_data$Date, format="%m/%d/%Y")
+dj_data = read.csv("dow_jones_data.csv")
+dj_data$Date = as.Date(dj_data$Date, format="%Y/%m/%d")
 
 plot(dj_data$Date, dj_data$DJIA, type="l")
 
@@ -69,7 +70,7 @@ legend('topleft', c('Original Data','alpha=0.05', 'alpha=0.25', 'alpha=0.95'),
 # D - Degree Integrated (1) # One level differencing
 # Q - Moving Average (1) # Based only on the previous one
 
-double_exp_smooth = Arima(dj_data$DJIA, order = c(0,1,1), seasonal=c(0,1,0))
+double_exp_smooth = Arima(dj_data$DJIA, order = c(0,1,1))
 double_exp_fit = dj_data$DJIA - double_exp_smooth$residuals # fitted values
 plot(dj_data$Date, dj_data$DJIA,type="l", lwd=2)
 lines(dj_data$Date, double_exp_fit, col="red", lwd=2, lty=2)
@@ -91,7 +92,7 @@ lh   # Built in dataset
 plot(lh)
 
 # First Order Auto regressive
-ar1 = ar(lh, order.max = 1)
+ar1 = ar(lh, order.max = 1) # as ARIMA(1,0,0)
 ar1_fitted = lh - ar1$resid
 
 # Plot outcome
@@ -222,14 +223,14 @@ DJIA_2_periods_ago = sapply(1:nrow(dj), function(x){
   if(x == 1){
     return(dj$DJIA[1])
   }else{
-    return(dj$DJIA[x-1])
+    return(dj$DJIA[x-2])
   }
 })
 dj$two_days_ago = DJIA_2_periods_ago
 
 dj_model_AR2 = lm(DJIA ~ . - Date, data = dj)
 summary(dj_model_AR2)
-# Nope!
+# Yes!
 
 ##-------Spatial Statistics------
 # Clean up
