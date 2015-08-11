@@ -8,7 +8,8 @@
 require(logging)
 
 # Set working directory
-setwd('C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\FinalTWITProject')
+#setwd('C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\FinalTWITProject')
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/FinalTWITProject')
 
 # Filename to save
 f_name <- "restaurant.csv"
@@ -18,7 +19,8 @@ if(!file.exists(f_name)) {
   url <- "https://data.kingcounty.gov/api/views/pph9-v8tz/rows.csv?accessType=DOWNLOAD"
   
   # Download and save data
-  download.file(url,destfile = f_name)
+  # FOR WINDOWS REMOVE: method = "curl"
+  download.file(url,destfile = f_name, method = "curl")
 }
 
 # Read data file
@@ -47,8 +49,8 @@ r_data$Violation_Record_ID[is.na(r_data$Violation_Record_ID)] <- "none"
 # Convert date field to Date Type
 r_data$Inspection.Date <- as.Date(r_data$Inspection.Date, format = "%m/%d/%Y")
 
-# Isolate year 2015 only
-r_data <- r_data[r_data$Inspection.Date > '2014-12-31',]
+# Isolate year 2015 only (if needed)
+# r_data <- r_data[r_data$Inspection.Date > '2014-12-31',]
 
 # Try histograms on violation points (not good)
 hist(r_data$Violation.Points)
