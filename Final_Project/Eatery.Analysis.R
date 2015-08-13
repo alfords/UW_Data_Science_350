@@ -49,12 +49,20 @@ r_data$Violation_Record_ID[is.na(r_data$Violation_Record_ID)] <- "none"
 # Convert date field to Date Type
 r_data$Inspection.Date <- as.Date(r_data$Inspection.Date, format = "%m/%d/%Y")
 
-# Isolate year 2015 only (if needed)
-# r_data <- r_data[r_data$Inspection.Date > '2014-12-31',]
+# cleanup unused variables
+rm(f_name)
+rm(url)
 
-# Try histograms on violation points (not good)
-hist(r_data$Violation.Points)
+# Add numeric equivalelnt of Inspection Type column to r_data data frame
+unique(r_data$Inspection.Type)
+r_data$my_InspectionType[r_data$Inspection.Type == 'Consultation/Education - Field'] <- 1
+r_data$my_InspectionType[r_data$Inspection.Type == 'Routine Inspection/Field Review'] <- 2
+r_data$my_InspectionType[r_data$Inspection.Type == 'Return Inspection'] <- 3
 
-# Try log of violation points (much better)
-hist(log(r_data$Violation.Points))
+# Add numeric equivalient of Violation Type ro r_data data frame
+unique(r_data$Violation.Type)
+r_data$my_ViolationType[r_data$Violation.Type == 'none'] <- 1
+r_data$my_ViolationType[r_data$Violation.Type == 'blue'] <- 2
+r_data$my_ViolationType[r_data$Violation.Type == 'red'] <- 3
 
+# Try using Longtitude, Lattitude, log(inspection score), and log(violation points) to run statistics
