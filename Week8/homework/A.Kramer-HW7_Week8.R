@@ -1,8 +1,7 @@
 # Homework 7
 # Hint
 
-#setwd('C:\\Users\\db345c\\Desktop\\UW_TRAIN\\Week8\\homework')
-setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week8/homework')
+setwd('C:\\Users\\db345c\\Desktop\\UW_TRAIN\\Week8\\homework')
 
 
 ##-----Load Libraries-----
@@ -71,13 +70,17 @@ headcount$week = as.numeric(format(headcount$DateFormat, format = "%W"))
 temp_model <- lm(temp ~ . - DateFormat, data = headcount)
 summary(temp_model)
 
-# Date vs. Temperature plot
+# Date vs. Temperature plot (85%)
 plot(headcount$DateFormat, headcount$temp, type="l", lwd=2, main="Temperature", xlab="Date", ylab="Temp")
 lines(headcount$DateFormat, temp_model$fitted.values, lwd=2, lty=8, col="green")
 
+# Report Residual Standard Error
+print("-----------------------------------------------------------")
+print(paste("Residual Standard error for temp_model is", summary.lm(temp_model)$sigma))
+
 #---------------------------------------------
 
-# Create dew point model
+# Create dew point model (75%)
 dew_model <- lm(dew_pt ~ . - DateFormat, data = headcount)
 summary(dew_model)
 
@@ -85,13 +88,15 @@ summary(dew_model)
 plot(headcount$DateFormat, headcount$dew_pt, type="l", lwd=2, main="Dew Point", xlab="Date", ylab="Dew_pt")
 lines(headcount$DateFormat, dew_model$fitted.values, lwd=2, lty=8, col="red")
 
-#---------------------------------------------
+# Report Residual Standard Error
+print("---------------------------------------------------------")
+print(paste("Residual Standard error for dew_model is", summary.lm(dew_model)$sigma))
 
-# Create wind speed model
-wind_model <- lm(wind_speed ~ . - weekday, data = headcount)
-summary(wind_model)
-
-# Weekday vs. wind_speed
-plot(headcount$weekday, headcount$wind_speed, lwd=4, main="Dew Point", xlab="Weekday", ylab="Wind Speed")
-points(headcount$weekday, wind_model$fitted.values, lwd=1, lty=8, col="red")
+##------------ Writeup ------------------------
+# Residual standard error for temp_mode is 7.26
+# Residual standard errof for dew_model is 6.73
+# Basically, residual standard error (s) represents standard deviation of the residuals 
+# and hep us estimate how close the fit is to the actual points.  0 is considered to be 
+# a perfect fit (normally due to over-fitting). Both models above are pretty good, but 
+# based on the residual standard error - there is still room for improvement.
 

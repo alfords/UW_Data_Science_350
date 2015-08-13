@@ -6,7 +6,7 @@
 ##
 ##--------------------------------------------
 
-setwd('E:/Work/Teaching/PCE_Data_Science/7_TimeSeries_SpatialStats_Bayes')
+setwd('C:\\Users\\db345c\\Desktop\\UW_TRAIN\\Week8')
 
 # Load Libraries
 library(TSA)
@@ -41,8 +41,8 @@ potential_periods = (1/potential_frequencies) * mean(diff(x))
 
 ##------Simple Exponential Smoothing-----
 
-dj_data = read.csv("DJIA.csv")
-dj_data$Date = as.Date(dj_data$Date, format="%m/%d/%Y")
+dj_data = read.csv("dow_jones_data.csv")
+dj_data$Date = as.Date(dj_data$Date, format="%Y-%m-%d")
 
 plot(dj_data$Date, dj_data$DJIA, type="l")
 
@@ -69,7 +69,7 @@ legend('topleft', c('Original Data','alpha=0.05', 'alpha=0.25', 'alpha=0.95'),
 # D - Degree Integrated (1) # One level differencing
 # Q - Moving Average (1) # Based only on the previous one
 
-double_exp_smooth = Arima(dj_data$DJIA, order = c(0,1,1), seasonal=c(0,1,0))
+double_exp_smooth = Arima(dj_data$DJIA, order = c(0,1,1))
 double_exp_fit = dj_data$DJIA - double_exp_smooth$residuals # fitted values
 plot(dj_data$Date, dj_data$DJIA,type="l", lwd=2)
 lines(dj_data$Date, double_exp_fit, col="red", lwd=2, lty=2)
@@ -77,12 +77,12 @@ lines(dj_data$Date, double_exp_fit, col="red", lwd=2, lty=2)
 # prediction
 double_exp_pred = predict(double_exp_smooth, n.ahead = 30)
 
-lines(seq(from=dj_data$Date[375], to=dj_data$Date[375]+30, by=1)[-1],
+lines(seq(from=dj_data$Date[333], to=dj_data$Date[333]+30, by=1)[-1],
       double_exp_pred$pred, lwd=2, col='green')
 # Add in standard error lines
-lines(seq(from=dj_data$Date[375], to=dj_data$Date[375]+30, by=1)[-1],
+lines(seq(from=dj_data$Date[333], to=dj_data$Date[333]+30, by=1)[-1],
       double_exp_pred$pred + double_exp_pred$se, lwd=2, col='green')
-lines(seq(from=dj_data$Date[375], to=dj_data$Date[375]+30, by=1)[-1],
+lines(seq(from=dj_data$Date[333], to=dj_data$Date[333]+30, by=1)[-1],
       double_exp_pred$pred - double_exp_pred$se, lwd=2, col='green')
 
 ##----Auto regressive Model----
@@ -91,7 +91,7 @@ lh   # Built in dataset
 plot(lh)
 
 # First Order Auto regressive
-ar1 = ar(lh, order.max = 1)
+ar1 = ar(lh, order.max = 1) # ARIMA(1,0,0)
 ar1_fitted = lh - ar1$resid
 
 # Plot outcome
@@ -139,7 +139,7 @@ y_AR1 = arima.sim(list(order=c(1,0,0), ar=0.8),n=500)
 plot(y_AR1)
 
 # 2nd order random walk
-y_AR2 = arima.sim(list(order=c(2,0,0), ar=c(0.55, 0.3)), n=500)
+y_AR2 = arima.sim(list(order=c(2,0,0), ar=c(0.5, 0.3)), n=500)
 plot(y_AR2)
 
 ##----ARIMA(0,N,0)=Random Walk Model-----
@@ -219,24 +219,24 @@ lines(dj$Date, dj_model$fitted.values, lwd=2, lty=8, col="red")
 
 # More autoregressive than 1 day?  Let's check:
 DJIA_2_periods_ago = sapply(1:nrow(dj), function(x){
-  if(x == 1){
+  if(x %in% c(1,2)){
     return(dj$DJIA[1])
   }else{
-    return(dj$DJIA[x-1])
+    return(dj$DJIA[x-2])
   }
 })
 dj$two_days_ago = DJIA_2_periods_ago
 
 dj_model_AR2 = lm(DJIA ~ . - Date, data = dj)
 summary(dj_model_AR2)
-# Nope!
+# Yup
 
 ##-------Spatial Statistics------
 # Clean up
 rm(list = ls())
 gc()
 
-data(coalash)
+data(coalash) # Coal ash is a pollutant generated from coal powered mining
 head(coalash)
 
 
