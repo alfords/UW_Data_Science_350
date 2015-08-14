@@ -65,4 +65,4 @@ r_data$my_ViolationType[r_data$Violation.Type == 'none'] <- 1
 r_data$my_ViolationType[r_data$Violation.Type == 'blue'] <- 2
 r_data$my_ViolationType[r_data$Violation.Type == 'red'] <- 3
 
-# Try using Longtitude, Lattitude, log(inspection score), and log(violation points) to run statistics
+# Try using Longtitude, Lattitude, (or Date), log(inspection score), and log(violation points) to run statistics
