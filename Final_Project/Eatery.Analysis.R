@@ -53,7 +53,7 @@ r_data$Violation_Record_ID[is.na(r_data$Violation_Record_ID)] <- "none"
 # Convert date field to Date Type
 r_data$Inspection.Date <- as.Date(r_data$Inspection.Date, format = "%m/%d/%Y")
 
-# cleanup unused variables
+# Cleanup variables that will not be used any more
 rm(f_name)
 rm(url)
 
@@ -77,5 +77,9 @@ var_latt <- ad.test(r_data$Latitude)
 # are normally distributed).  Paremetric tests should be used.
 print(paste('p-value for normality test of Longtitude variable is:', var_longt$p.value))
 print(paste('p-value for normality test of Lattitude variable is:', var_latt$p.value))
+
+# Cleanup workspace for the variables that will not be used any more
+rm(var_latt)
+rm(var_longt)
 
 # Try using Longtitude, Lattitude to run statistics against my_inspectionType and my_ViolationType
