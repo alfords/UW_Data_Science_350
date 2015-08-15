@@ -10,7 +10,7 @@ require(nortest)
 
 # Set working directory
 setwd('C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\FinalTWITProject')
-#setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/FinalTWITProject')
+# setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/FinalTWITProject')
 
 # Filename to save
 f_name <- "restaurant.csv"
@@ -21,7 +21,7 @@ if(!file.exists(f_name)) {
   
   # Download and save data
   # For Mac
-  download.file(url,destfile = f_name, method = "curl")
+  # download.file(url,destfile = f_name, method = "curl")
   
   # For Windows
   download.file(url,destfile = f_name)
