@@ -6,10 +6,11 @@
 ##-------------------------------------------------
 
 require(logging)
+require(nortest)
 
 # Set working directory
-#setwd('C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\FinalTWITProject')
-setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/FinalTWITProject')
+setwd('C:\\Users\\Aleksey\\Documents\\School\\UW_Data_Science\\UW_Data_Science_350\\FinalTWITProject')
+#setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/FinalTWITProject')
 
 # Filename to save
 f_name <- "restaurant.csv"
@@ -19,8 +20,11 @@ if(!file.exists(f_name)) {
   url <- "https://data.kingcounty.gov/api/views/pph9-v8tz/rows.csv?accessType=DOWNLOAD"
   
   # Download and save data
-  # FOR WINDOWS REMOVE: method = "curl"
+  # For Mac
   download.file(url,destfile = f_name, method = "curl")
+  
+  # For Windows
+  download.file(url,destfile = f_name)
 }
 
 # Read data file
@@ -65,4 +69,13 @@ r_data$my_ViolationType[r_data$Violation.Type == 'none'] <- 1
 r_data$my_ViolationType[r_data$Violation.Type == 'blue'] <- 2
 r_data$my_ViolationType[r_data$Violation.Type == 'red'] <- 3
 
-# Try using Longtitude, Lattitude, (or Date), log(inspection score), and log(violation points) to run statistics
+# Check Longtitude and Lattitude variables for Normality
+var_longt <- ad.test(r_data$Longitude)
+var_latt <- ad.test(r_data$Latitude)
+
+# Output p-value for Longtitute and Lattitude variables (both of them
+# are normally distributed).  Paremetric tests should be used.
+print(paste('p-value for normality test of Longtitude variable is:', var_longt$p.value))
+print(paste('p-value for normality test of Lattitude variable is:', var_latt$p.value))
+
+# Try using Longtitude, Lattitude to run statistics against my_inspectionType and my_ViolationType
