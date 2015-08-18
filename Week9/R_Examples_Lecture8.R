@@ -6,7 +6,8 @@
 ##
 ##--------------------------------------------
 
-setwd('E:/Work/Teaching/PCE_Data_Science/8_Bayesian_ComputationalStats')
+#setwd('E:/Work/Teaching/PCE_Data_Science/8_Bayesian_ComputationalStats')
+setwd('/Users/voitel/TRAINING/UW_Data_Science/UW_Data_Science_350/Week9')
 
 library(boot)
 library(ggplot2)
@@ -15,7 +16,7 @@ library(caret)
 library(e1071)
 library(ROCR)
 
-##----Explore the Beta Distribution-----
+##----Explore the Beta Distribution----- Demo through Page 21
 
 # Beta depends on two parameters, alpha and beta
 
