@@ -31,7 +31,7 @@ library(stringdist)
 
 library(textir) # Yes, install from source (if possible)
 
-##----Measuring Text Distance------
+##----Measuring Text Distance------ PAGE 9
 word1 = "beer"
 word2 = "bear"
 
@@ -90,7 +90,7 @@ hist(sample_distances_weighted, breaks=35)
 hist(sample_distances_jaccard, breaks=35)
 
 
-##-----Load Data Sets-----
+##-----Load Data Sets----- PAGE 8 of the slides
 # Load email list
 texts = read.csv("text_messages.csv", stringsAsFactors = FALSE)
 
@@ -128,7 +128,7 @@ texts$message_stem = sapply(texts$Message, function(x){
 
 
 # Create a Corpus (matrix of frequent terms)
-##-----Text Corpus-----
+##-----Text Corpus----- PAGE 10 in presentation
 # We have to tell R that our collection of reviews is really a corpus.
 text_corpus = Corpus(VectorSource(texts$message_stem))
 
@@ -158,7 +158,7 @@ which_cols_to_use = which(colSums(text_corpus_mat) > 10)
 
 text_frame = text_frame[,which_cols_to_use]
 
-# Convert to factors:
+# Convert to factors: (to use with naive base)
 text_frame = as.data.frame(lapply(text_frame, as.factor))
 
 # Add the response
@@ -197,7 +197,7 @@ sample_occurences = sapply(important_words, function(x){
 sample_data = as.data.frame(t(sample_occurences))
 sample_prediction = predict(text_nb, newdata = sample_data, type = "class")
 
-##--------BEER REVIEW DATA-----
+##--------BEER REVIEW DATA----- PAGE 11 on the slides
 # Load scraped beer reviews
 reviews = read.csv("beer_reviews.csv", stringsAsFactors = FALSE)
 reviews$date = as.Date(reviews$date, format = "%Y-%m-%d")
@@ -295,7 +295,7 @@ words_for_cloud = tail(word_freq, n= 50)
 wordcloud(names(words_for_cloud), words_for_cloud, colors=brewer.pal(6, "Dark2"))
 
 
-#----TF-IDF in R------
+#----TF-IDF in R------ PAGE 13 in slides
 tf_idf_reviews = DocumentTermMatrix(review_corpus, control = list(weighting = weightTfIdf))
 
 # Too large and too sparse, so we remove sparse terms:
@@ -310,6 +310,8 @@ tail(tfidf_word_freq, n=10)
 
 # Least Common:
 head(tfidf_word_freq, n=10)
+
+
 
 ##-------Apply this for different styles and compare------
 # let's apply this for specific styles!
@@ -361,7 +363,9 @@ head(tfidf_word_freq_nohoppy, n=10)
 hoppy_unique_tfidf = setdiff(names(rev(tfidf_word_freq_hoppy)), names(tfidf_word_freq_nohoppy))
 non_hoppy_unique_tfidf = setdiff(names(rev(tfidf_word_freq_nohoppy)), names(tfidf_word_freq_hoppy))
 
-##-------Latent Dirichlet Allocation------
+
+
+##-------Latent Dirichlet Allocation------ PAGE 14 on the slides
 review_corpus_unstemmed = Corpus(VectorSource(reviews$review))
 review_dtm = DocumentTermMatrix(review_corpus_unstemmed, control = list(wordLengths = c(4,10)))
 dim(review_dtm)
@@ -385,7 +389,10 @@ lda = LDA(review_dtm, k)
 # Get list of top keywords for each topic:
 beer_topics = terms(lda, 10)
 
-##-----RAKE-------
+
+
+##-----RAKE------- PAGE 16 on Slides
+
 # Rapid Automatic Keyword Extraction
 data(crude)
 ?crude
